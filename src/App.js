@@ -29,19 +29,36 @@ const data = [
 ]
 
 class App extends React.Component {
- 
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: ''
+    }
+    this.updateSelection = this.updateSelection.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  updateSelection(event) {
+    this.setState({ value: event.target.value })
+  }
+
+  handleSubmit(event) {
+    console.log("State is:", this.state)
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="App">
-        <form >
-        <label>
-          <select value={data.name}>
-          <option selected value="">-- pick a model --</option>
-            {data.map(computer =><option value={computer.name}>{computer.name} ({computer.year})</option>)}
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            <select value={this.state.value} onChange={this.updateSelection}>
+              <option selected value="">-- pick a model --</option>
+              {data.map(computer => <option value={computer.name}>{computer.name} ({computer.year})</option>)}
+            </select>
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
