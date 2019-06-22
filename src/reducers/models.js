@@ -1,7 +1,8 @@
-export default (state = [], action = {}) => {
+const initialState = []
+
+export default (state = initialState, action = {}) => {
     switch (action.type) {
         case "ADD_MODEL":
-            console.log("STATE BEFORE", state)
             return [...state, { ...action.payload }]
         default:
             return state

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { addModel } from './actions/addModel'
 import { connect } from 'react-redux'
-
+import ModelDetails from './components/ModelDetails';
 
 const data = [
   {
@@ -42,32 +42,27 @@ class App extends React.Component {
   }
 
   updateSelection(event) {
-    console.log("PROPS?", this.props, "STATE IN UPDATE", this.state)
     this.setState({ value: event.target.value })
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    //data.find(model => model.name === this.state.value)
-    
     this.props.addModel(
       data.find(model => model.name === this.state.value)
     )
   }
 
-
-
   render() {
     return (
       <div className="App">
+        <ModelDetails models={this.props.models} />
         <form onSubmit={this.handleSubmit}>
           <label>
             <select value={this.state.value} onChange={this.updateSelection}>
               <option selected value="">-- pick a model --</option>
-              {data.map(computer => <option value={computer.name}>{computer.name} ({computer.year})</option>)}
+              {data.map(computer => <option value={computer.name} key={computer.name}>{computer.name} ({computer.year})</option>)}
             </select>
           </label>
-         
           <input type="submit" value="Add" />
         </form>
       </div>
@@ -75,23 +70,10 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (reduxState) => ({
-
-})
-
+const mapStateToProps = (reduxState) => {
+  return {
+    models: reduxState
+  }
+}
 
 export default connect(mapStateToProps, { addModel: addModel })(App)
-
-
-/*
-workbench
-
-const computerObject = (data, selection = this.state.value) => {
-      data.find(model => model.name === selection)
-    }
-    this.props.addModel(computerObject);
-
-
-
-     <button onClick={this.dispatchSelection}>add</button>
-*/
