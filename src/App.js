@@ -35,7 +35,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: ''
+      value: {}
     }
     this.updateSelection = this.updateSelection.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
