@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import { addModel } from './actions/addModel'
+import { connect } from 'react-redux'
+
 
 const data = [
   {
@@ -39,13 +42,20 @@ class App extends React.Component {
   }
 
   updateSelection(event) {
+    console.log("PROPS?", this.props, "STATE IN UPDATE", this.state)
     this.setState({ value: event.target.value })
   }
 
   handleSubmit(event) {
-    console.log("State is:", this.state)
     event.preventDefault();
+    //data.find(model => model.name === this.state.value)
+    
+    this.props.addModel(
+      data.find(model => model.name === this.state.value)
+    )
   }
+
+
 
   render() {
     return (
@@ -57,12 +67,31 @@ class App extends React.Component {
               {data.map(computer => <option value={computer.name}>{computer.name} ({computer.year})</option>)}
             </select>
           </label>
-          <input type="submit" value="Submit" />
+         
+          <input type="submit" value="Add" />
         </form>
       </div>
     );
   }
 }
 
+const mapStateToProps = (reduxState) => ({
 
-export default App;
+})
+
+
+export default connect(mapStateToProps, { addModel: addModel })(App)
+
+
+/*
+workbench
+
+const computerObject = (data, selection = this.state.value) => {
+      data.find(model => model.name === selection)
+    }
+    this.props.addModel(computerObject);
+
+
+
+     <button onClick={this.dispatchSelection}>add</button>
+*/
