@@ -35,7 +35,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: {}
+      value: ""
     }
     this.updateSelection = this.updateSelection.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,7 +59,7 @@ class App extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             <select value={this.state.value} onChange={this.updateSelection}>
-              <option selected value="">-- pick a model --</option>
+              <option value="">-- pick a model --</option>
               {data.map(computer => <option value={computer.name} key={computer.name}>{computer.name} ({computer.year})</option>)}
             </select>
           </label>
