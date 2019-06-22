@@ -56,14 +56,15 @@ class App extends React.Component {
 
 
   render() {
+    const {name, manufacturer, year, origin} = this.props.models
     return (
       <div className="App">
-        <ModelDetails models={this.props.models}/>
+        <ModelDetails models={this.props.models} name={name} manufacturer={manufacturer} year={year} origin={origin}/>
         <form onSubmit={this.handleSubmit}>
           <label>
             <select value={this.state.value} onChange={this.updateSelection}>
               <option selected value="">-- pick a model --</option>
-              {data.map(computer => <option value={computer.name}>{computer.name} ({computer.year})</option>)}
+              {data.map(computer => <option value={computer.name} key={computer.name}>{computer.name} ({computer.year})</option>)}
             </select>
           </label>
           <input type="submit" value="Add" />
