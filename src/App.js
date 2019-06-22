@@ -4,7 +4,6 @@ import { addModel } from './actions/addModel'
 import { connect } from 'react-redux'
 import ModelDetails from './components/ModelDetails';
 
-
 const data = [
   {
     name: "Ivel Z3",
@@ -47,19 +46,16 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();    
+    event.preventDefault();
     this.props.addModel(
       data.find(model => model.name === this.state.value)
     )
   }
 
-
-
   render() {
-    const {name, manufacturer, year, origin} = this.props.models
     return (
       <div className="App">
-        <ModelDetails models={this.props.models} name={name} manufacturer={manufacturer} year={year} origin={origin}/>
+        <ModelDetails models={this.props.models} />
         <form onSubmit={this.handleSubmit}>
           <label>
             <select value={this.state.value} onChange={this.updateSelection}>
@@ -80,6 +76,4 @@ const mapStateToProps = (reduxState) => {
   }
 }
 
-
 export default connect(mapStateToProps, { addModel: addModel })(App)
-
